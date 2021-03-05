@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 
+<!--GITHUB URL: https://nishitbheda.github.io/ThreeJS/ -->
 
 <script type="module">
     import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r125/build/three.module.js';
@@ -30,7 +31,7 @@
         const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth); //Create the template for a BOX
         
         // const material = new THREE.MeshBasicMaterial({color: 0x1b27b3}); //Create the template look for the box (colour)
-        const material = new THREE.MeshPhongMaterial({color: 0x1b27b3}); //Update from Basic mesh to Phong mesh, which interacts with light
+        const material = new THREE.MeshPhongMaterial({color: 0xeb4034}); //Update from Basic mesh to Phong mesh, which interacts with light
 
         const cube = new THREE.Mesh(geometry, material); //Use the template geometry and material to create a box mesh
         //Geometry and Material are components of a mesh
