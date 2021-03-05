@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<script type="module">
+    import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r125/build/three.module.js';
+    
+    function main()
+    {
+        const canvas = document.querySelector('#c');
+        const renderer = new THREE.WebGLRenderer({canvas});
+
+        const fov = 75; //Field of view is 75 degrees in the vertical dimension
+        const aspect = 2; //Default canvas is 300x150 pixels (300/150 = 2)
+        const near = 0.1; //Render everything minimum 0.1 distance from the camera
+        const far = 5; //Render everything maximum 5 distance from the camera
+        const camera = new THREE.PerspectiveCamera(fov,aspect,near,far);
+        camera.position.z = 2;
+
+        const scene = new THREE.Scene(); //Everything is added to this scene
+        const boxWidth = 1;
+        const boxHeight = 1;
+        const boxDepth = 1;
+        const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth); //Create the template for a BOX
+        
+        // const material = new THREE.MeshBasicMaterial({color: 0x1b27b3}); //Create the template look for the box (colour)
+        const material = new THREE.MeshPhongMaterial({color: 0x1b27b3}); //Update from Basic mesh to Phong mesh, which interacts with light
+
+        const cube = new THREE.Mesh(geometry, material); //Use the template geometry and material to create a box mesh
+        //Geometry and Material are components of a mesh
+
+        scene.add(cube); //Add the cube to the scene that we made
+
+        const color = 0xFFFFFF; //colour of the light
+        const intensity = 1; //Intensity of the light
+        const light = new THREE.DirectionalLight(color, intensity); //Create light object using color and intensity
+        light.position.set(-1,2,4); //The position of the light is set
+        scene.add(light); //Add the ligth to the scene
+
+        renderer.render(scene, camera); //Use the scene and the camera to create the image of the scene
+
+        function render(time)
+        {
+            time *= 0.001; //Convert time to seconds;
+
+            cube.rotation.x = time; //Rotate the cube in the x direction
+            cube.rotation.y = time; //Rotate the cube in the y direction
+            //The larger time is, the faster the cube will rotate
+
+            renderer.render(scene, camera); //Update the scene after the rotation
+
+            requestAnimationFrame(render); //This is a standard method for animation. Google it
+        }
+        requestAnimationFrame(render);
+    }
+    main(); //Run the function
+
+</script>
+
+
+<body>
+    <canvas id="c"></canvas>    
+</body>
+</html>
